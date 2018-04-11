@@ -17,7 +17,11 @@ fn main() {
     let out_file = File::create(out_file_name).unwrap();
     
     // parse as clisp
-    // let clip = clispParse(in_file);
+    // let clip = {
+    //   let s = String::new();
+    //   in_file.readAll(s);
+    //   clispParse(s)
+    // }
     
     // print as clisp
     // generate stl

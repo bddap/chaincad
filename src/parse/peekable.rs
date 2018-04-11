@@ -2,7 +2,7 @@
 
 use std::mem::swap;
 
-struct Peekable <I: Iterator> {
+pub struct Peekable <I: Iterator> {
     iter: I,
     n: Option<I::Item>,
 }
@@ -41,4 +41,17 @@ impl<I: Iterator> Iterator for Peekable<I> {
     //     let mut f = self.f;
     //     self.iter.fold(init, move |acc, elt| g(acc, f(elt)))
     // }
+}
+
+impl<I: Iterator> Peekable<I> {
+    pub fn peek(mut self) -> Option<I::Item> {
+        match self.n {
+            None => {
+                let mut n = self.next();
+                swap(&mut self.n, &mut n);
+            },
+            _ => {}
+        }
+        self.n
+    }
 }
