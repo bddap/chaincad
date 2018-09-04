@@ -1,0 +1,9 @@
+
+name <- value
+# assignment
+
+value -> name
+# reverse assignment
+
+a + 1 / 2 + 1 -> name
+# reverse assignment after a chain
