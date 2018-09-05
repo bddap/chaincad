@@ -1,29 +1,27 @@
 use std::env;
-use std::fs::File;
-mod parse;
+use std::fs;
+use std::io::Read;
+mod clip;
 
 fn main() {
     // open file from args
     let mut args = env::args();
+    args.next();
     let in_file_name = match args.next() {
         Some(filename) => filename,
-        None => String::from("/dev/stdin")
+        None => String::from("/dev/stdin"),
     };
-    let out_file_name = match args.next() {
-        Some(filename) => filename,
-        None => String::from("/dev/stdout")
-    };
-    let in_file = File::open(in_file_name).unwrap();
-    let out_file = File::create(out_file_name).unwrap();
-    
+    let mut in_file = fs::File::open(in_file_name).expect("Could not open file.");
+
+    let mut s = String::new();
+    in_file.read_to_string(&mut s).expect("Could not read file.");
+    let b = &s.chars().collect::<Vec<char>>();
+
     // parse as clisp
-    // let clip = {
-    //   let s = String::new();
-    //   in_file.readAll(s);
-    //   clispParse(s)
-    // }
-    
+    let clip = clip::Clip::from_slice(b).expect("Invalid clisp.");
+
     // print as clisp
+    println!("clip: {}", clip);
+    
     // generate stl
-    eprintln!("Hello, world!");
 }
