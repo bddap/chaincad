@@ -2,6 +2,7 @@ use std::env;
 use std::fs;
 use std::io::Read;
 mod clip;
+mod eval;
 
 fn main() {
     // open file from args

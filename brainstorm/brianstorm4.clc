@@ -1,0 +1,31 @@
+# Instead of a special syntax sugar for "is", why not be more general?
+1 + 2 is three .
+three + three
+# [sugar for [
+  1 + 2 is three [three + three]
+]]
+
+# A deeper example
+1 + 2 is three .
+three + three is six .
+six + six
+# [sugar for [
+  1 + 2 is three [
+    three + three is six [
+      six + six
+    ]
+  ]
+]]
+
+1 + 1 is two . two + two is four [four + four]
+# [1 + 1 is two [two + two is four [four + four]]]
+
+x + x fn x is double .
+
++ is plus .
+[1 plus] is inc .
+
++ is plus [1 plus] is inc . 1 inc is two
++ is plus [1 plus] is inc [1 inc is two]
+[1 +] is inc [1 inc is two]
+[1 [1 +] is two]

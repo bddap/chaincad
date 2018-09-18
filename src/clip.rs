@@ -170,4 +170,10 @@ mod tests {
             Ok(Clip::Child(&"asdf".chars().collect::<Vec<char>>()))
         );
     }
+
+    #[test]
+    fn parse_sample() {
+        let source: Vec<char> = include_str!("../sample/snowman.clc").chars().collect();
+        Clip::from_slice(&source).expect("Invalid clisp.");
+    }
 }

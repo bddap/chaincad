@@ -1,0 +1,67 @@
+[Let's use "is" instead of "->" because "is" is pronouncable.] ;
+ 
+1 + 2 * 2 is six
+# [value assignment]
+
+x + y is [x add y]
+# [function assignment]
+
+x + 1 is [x inc]
+0 inc inc inc is three
+three inc
+# ["is" is syntactic sugar. This is what it really means: [
+  let [x inc] [x + 1] [
+    let [three] [0 inc inc inc] [
+      three inc
+    ]
+  ]
+] in other words: [
+  x + 1 -> [x inc] [
+    0 inc inc inc -> three [
+      three inc
+    ]
+  ]
+]]
+
+# [But we probably want easy anonymous functions.]
+
+x + 1 fn x is inc
+x + y fn x fn y is add
+[confusing. Reverse currying means arguments are declared in opposite order.] ;
+
+# let's add sugar
+x + y fn [x y]
+# [syntacic sugar for [
+    x + y fn y fn x
+]]
+
+# [We'll probably want some sort of lexer warning to stop people from writing raw reverse curry form]
+
+# [Final decision for brainstorm 3.]
+[
+  1 is one
+  x + y fn [x y] is add
+  i add one fn i is inc
+  0 inc inc
+] == [
+  3 -> three [
+    x + y fn y fn x -> add [
+      i add one fn i -> inc [
+        0 inc inc
+      ]
+    ]
+  ]
+]
+
+
+# Implementation:
+match body { # not valid clisp
+  String(string) => if string == name {value} else {string},
+  Expression(exp) => exp map [child replace_recursive name value fn child],
+}
+fn [body name value] is replace_recursive
+
+body evaluate relpace_recursive name value
+fn [value name body] is ->
+
+
